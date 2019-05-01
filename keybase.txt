@@ -1,0 +1,68 @@
+==================================================================
+https://keybase.io/nsmr0604
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://nsmr0604.github.io
+  * I am nsmr0604 (https://keybase.io/nsmr0604) on keybase.
+  * I have a public key with fingerprint F55B 8F35 0A04 B0D8 0AF4  F950 AFF6 ADAA 5702 22DB
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0101a3a4c9bdf668489688d59cf184a588c5fbb41384086a900fa645db51322d962d0a",
+      "fingerprint": "f55b8f350a04b0d80af4f950aff6adaa570222db",
+      "host": "keybase.io",
+      "key_id": "aff6adaa570222db",
+      "kid": "0101a3a4c9bdf668489688d59cf184a588c5fbb41384086a900fa645db51322d962d0a",
+      "uid": "541913dc73593dd6739cff0c42e1de19",
+      "username": "nsmr0604"
+    },
+    "service": {
+      "hostname": "nsmr0604.github.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1556693764,
+  "expire_in": 157680000,
+  "prev": "9906d992c29ae9d3352dd12490f4629d73e9787b3a921614a3999fcc1f8e0fe4",
+  "seqno": 19,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.1.0
+Comment: https://keybase.io/crypto
+
+yMIlAnicrZJbbA5BFMe/XqVNNKJIfBLRTcWlTc3s7szutGikcUlE3B4on3yZ3Zlp
+N9rdz+5+pSmRSigveHAnLQ804kHSRoKEKBWlCNK6PWjQiARpSAhFmC1exKN5mZwz
+//9vzjk53aOzYvkZCfN+UW/3dTOjt6s1HUvcrMpuUiyPNSrlTcp6PnLxOsaDMLne
+YUq5AiCAVKO6TSwmMDZ1k2DTZIjYApo6RaZpI2FZOtRMHZiYEgAExTpiFoKaqjKC
+VQaoUqoIx63hfsp33FBiBUKWKTQEKNAtwExAhS6IDIXAlFGKDKBKtyWNtV4QOWRx
+Fg14mePJnAySI+X9Q/+f606P4JAOCdSYbWiIaIxhQ5MgAWxd5ZBxSCJhwH2X1nOp
+doN6H2CgK1tKFZltcGweDTbq5C9FWY0T1qatX12lfC/0bK9OvteGYSooj/xhYyoy
+bORW8jcqaTkuk9OUjgbuB47nKuVQKu3QidgQIYyJZmC9VOGbUo7Pk06kQAY2gTzR
+P7xBIgkBmBGi2iqhnDBNQypjUNUJEDpWCTM0TgzTsDRKVIihTjVCiLBtKEwOBNeV
+qLkNrifZRNZJayQzcGpcGqZ9rmy5eiWRHcvIj+XmZEZrFsvPG/Nn+ZZ0j/pRu2C6
+Yb86OyN+sPDuuyPp123Pdl94/LruxpJ9C6uzDtQ/7DCWnyPNi5O7/Mpvg5Mrq8jF
+xvnesZPv3s69VGbdOwM6rqGWac1bX272DsHWwdOD1Ss2TBh3ZH9mz56Zi5or5xRf
+iQezPLFz/MSpj5YtevVgesW8lqa9cNKFW8eLxl79mnt82qbunqGOytXtnS/QqCen
+7kwuyX00UBCvP5ooTL/v+rh2c3PP4b7byqqjiXSF297W/lyNlyzI1t7O5GPLjHV4
+2aoveWx4adeYtr5tOZ/XDUwhvd8qdmQNDZz+0f/he//KTycL4JrOTNH6pj+nMD38
+qaqx+Dzf/vTy7OGh2dWDKzae+AlkfD/s
+=XkeH
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/nsmr0604
+
+==================================================================
