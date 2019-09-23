@@ -1,0 +1,6 @@
+127.0.0.1 mesu.apple.com
+127.0.0.1 appldnld.apple.com
+127.0.0.1 radarsubmissions.apple.com
+127.0.0.1 iphonesubmissions.apple.com
+127.0.0.1 ocsp.apple.com
+127.0.0.1 ppq.apple.com
