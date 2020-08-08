@@ -4,3 +4,7 @@
 127.0.0.1 iphonesubmissions.apple.com
 127.0.0.1 ocsp.apple.com
 127.0.0.1 ppq.apple.com
+
+127.0.0.1 world-gen.g.aaplimg.com
+127.0.0.1 ocsp.usertrust.com
+127.0.0.1 ocsp.digicert.com
