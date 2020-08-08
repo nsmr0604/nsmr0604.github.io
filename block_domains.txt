@@ -1,0 +1,15 @@
+mesu.apple.com
+appldnld.apple.com
+radarsubmissions.apple.com
+iphonesubmissions.apple.com
+ocsp.apple.com
+ppq.apple.com
+
+world-gen.g.aaplimg.com
+ocsp.usertrust.com
+ocsp.digicert.com
+
+ad2.fivecdm.com
+googleads.g.doubleclick.net
+bc2.fivecdm.com
+e.crashlytics.com
