@@ -1,29 +1,57 @@
 <!DOCTYPE html>
-<html lang=ja>
-  <head>
-    <meta http-equiv="content-language" content="ja" />
-    <meta http-equiv="default-style" content="css/default.css" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="nsmr0604's page." />
-    <title>nsmr0604's page</title>
-    <link rel="stylesheet" href="css/default.css" />
-    <script src="js/default.js"></script>
-  </head>
-  <body>
-    <header>
-      <h1 style="text-align:center;">This is nsmr0604's page.</h1>
-    </header>
-    <main>
-      <p>If you want to contact me, please send DM to twitter.</p>
-      <ul>
-        <li>Misskey: <a href="https://misskey.io/@nsmr0604" rel="me">@nsmr0604@misskey.io</a></li>
-        <li>Bluesky: <a href="https://staging.bsky.app/profile/did:plc:rngv7mf7c23mbc5iqgm2jw6q" rel="me">@nsmr0604.gee.jp@bsky.social</a></li>
-        <li>Mastodon: <a href="https://pawoo.net/@nsmr0604" rel="me">@nsmr0604@pawoo.net</a></li>
-      </ul>
-    </main>
-    <footer>
-      <p>&copy; 2018 - <script>document.write(new Date().getFullYear());</script> <a href="https://twitter.com/nsmr0604" rel="me" >nsmr0604</a>. All rights reserved.</p>
-    </footer>
-  </body>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="nsmr0604 — software engineer & open-source contributor. Misskey, Bluesky, Mastodon, GitHub." />
+  <meta name="theme-color" content="#2c3e50" />
+  <title>nsmr0604 — Social Media Hub</title>
+  <link rel="canonical" href="https://nsmr0604.github.io/" />
+  <link rel="stylesheet" href="css/default.css" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://nsmr0604.github.io/" />
+  <meta property="og:title" content="nsmr0604 — Social Media Hub" />
+  <meta property="og:description" content="Software engineer & open-source contributor. Connect on Misskey, Bluesky, Mastodon, GitHub." />
+  <meta property="og:image" content="https://nsmr0604.github.io/og-image.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@nsmr0604" />
+  <!-- JSON-LD Person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "nsmr0604",
+    "url": "https://nsmr0604.github.io/",
+    "sameAs": [
+      "https://misskey.io/@nsmr0604",
+      "https://bsky.app/profile/nsmr0604.gee.jp",
+      "https://pawoo.net/@nsmr0604",
+      "https://github.com/nsmr0604",
+      "https://twitter.com/nsmr0604"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>nsmr0604 — Social Media Hub</h1>
+    <p class="tagline">All links to my social profiles in one place</p>
+  </header>
+  <main>
+    <p>For inquiries, please send a DM via the platforms below.</p>
+    <ul class="social-links">
+      <li><a href="https://misskey.io/@nsmr0604" rel="me">Misskey: @nsmr0604@misskey.io</a></li>
+      <li><a href="https://bsky.app/profile/nsmr0604.gee.jp" rel="me">Bluesky: @nsmr0604.gee.jp</a></li>
+      <li><a href="https://pawoo.net/@nsmr0604" rel="me">Mastodon: @nsmr0604@pawoo.net</a></li>
+      <li><a href="https://github.com/nsmr0604" rel="me">GitHub: @nsmr0604</a></li>
+      <li><a href="https://twitter.com/nsmr0604" rel="me">Twitter/X: @nsmr0604</a></li>
+    </ul>
+  </main>
+  <footer>
+    <p>&copy; 2018–<span id="year"></span> <a href="https://twitter.com/nsmr0604" rel="me">nsmr0604</a>. All rights reserved.</p>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
 </html>
