@@ -1,1 +1,1 @@
-// placeholder for default JS
+document.getElementById("year").textContent = new Date().getFullYear();
