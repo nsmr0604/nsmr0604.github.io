@@ -2,7 +2,7 @@ body {
     display: flex;
     flex-flow: column;
     min-height: 90vh;
-    font-family: "BIZ UD Gothic", sans-serif;
+    font-family: "BIZ UDGothic", sans-serif;
 }
 
 main {
