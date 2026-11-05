@@ -1,1 +1,5 @@
-document.getElementById("year").textContent = new Date().getFullYear();
+import { updateFooterYear } from "./modules/footer.js";
+import { updateProfiles } from "./modules/profile-display.js";
+
+updateFooterYear();
+updateProfiles();
