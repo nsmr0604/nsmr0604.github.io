@@ -63,8 +63,30 @@ header {
 }
 
 .social-account {
-    margin: 0.75rem 0 1rem;
+    margin: 0.25rem 0 1rem;
     color: #666;
+    overflow-wrap: anywhere;
+}
+
+.social-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 3rem;
+    margin: 0.75rem 0 1rem;
+}
+
+.profile-avatar {
+    width: 3rem;
+    height: 3rem;
+    flex: 0 0 3rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.social-display-name {
+    margin: 0;
+    font-weight: 700;
     overflow-wrap: anywhere;
 }
 
