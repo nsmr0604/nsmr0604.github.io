@@ -13,11 +13,16 @@ async function updateProfile(card, getProfile) {
   try {
     const profile = await getProfile();
     const displayName = card.querySelector(".social-display-name");
+    const account = card.querySelector(".social-account");
     const avatar = card.querySelector(".profile-avatar");
 
     if (typeof profile.name === "string" && profile.name.trim()) {
       displayName.textContent = profile.name.trim();
       displayName.hidden = false;
+    }
+
+    if (typeof profile.screenName === "string" && profile.screenName.trim()) {
+      account.textContent = `@${profile.screenName.trim().replace(/^@/, "")}`;
     }
 
     if (isWebUrl(profile.avatar)) {

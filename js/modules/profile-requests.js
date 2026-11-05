@@ -7,6 +7,7 @@ export const profileRequests = {
     const [profile] = await response.json();
     return {
       name: profile?.name,
+      screenName: profile?.screen_name,
       avatar: profile?.profile_image_url_https,
     };
   },
