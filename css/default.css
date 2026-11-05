@@ -58,17 +58,17 @@ header {
     width: 1.75rem;
     height: 1.75rem;
     flex: 0 0 1.75rem;
-    fill: currentColor;
 }
 
 .icon-twitter {
     color: #1d9bf0;
+    fill: #1d9bf0;
 }
 
 .icon-misskey {
     color: #9b70e8;
     fill: none;
-    stroke: currentColor;
+    stroke: #9b70e8;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 1.8;
@@ -76,16 +76,18 @@ header {
 
 .icon-bluesky {
     color: #1185fe;
+    fill: #1185fe;
 }
 
 .icon-mastodon {
     color: #6364ff;
+    fill: #6364ff;
 }
 
 .icon-github {
     color: #24292f;
     fill: none;
-    stroke: currentColor;
+    stroke: #24292f;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 1.7;
