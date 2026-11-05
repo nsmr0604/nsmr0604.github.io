@@ -6,7 +6,7 @@ export const profileRequests = {
     if (!response.ok) throw new Error("Unable to load Twitter profile");
     const [profile] = await response.json();
     return {
-      name: profile?.name,
+      screenName: profile?.screen_name,
       avatar: profile?.profile_image_url_https,
     };
   },
