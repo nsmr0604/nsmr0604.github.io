@@ -40,24 +40,49 @@ header {
     min-width: 0;
 }
 
-.social-links a {
+.social-card {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    min-height: 5rem;
+    flex-direction: column;
+    min-height: 9rem;
     padding: 1rem;
     border: 1px solid #d5dce2;
     border-radius: 0.75rem;
     background-color: #fff;
-    text-decoration: none;
     color: #2c3e50;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.social-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.social-card-header h2 {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.social-account {
+    margin: 0.75rem 0 1rem;
+    color: #666;
+    overflow-wrap: anywhere;
 }
 
 .social-icon {
     width: 1.75rem;
     height: 1.75rem;
     flex: 0 0 1.75rem;
+}
+
+.social-profile-link {
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.4rem;
+    background-color: #2c3e50;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .icon-twitter {
@@ -93,23 +118,22 @@ header {
     stroke-width: 1.7;
 }
 
-.social-links a:hover {
-    border-color: #2c3e50;
-    box-shadow: 0 0.25rem 0.75rem rgb(44 62 80 / 12%);
+.social-profile-link:hover {
+    background-color: #1b2835;
     transform: translateY(-2px);
 }
 
-.social-links a:focus-visible {
+.social-profile-link:focus-visible {
     outline: 3px solid #2c3e50;
     outline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .social-links a {
+    .social-profile-link {
         transition: none;
     }
 
-    .social-links a:hover {
+    .social-profile-link:hover {
         transform: none;
     }
 }
