@@ -1,4 +1,4 @@
-import { profileRequests } from "./profile-requests.js";
+import { loadProfiles } from "./profile-requests.js";
 
 function isWebUrl(value) {
   if (!value) return false;
@@ -9,9 +9,8 @@ function isWebUrl(value) {
   }
 }
 
-async function updateProfile(card, getProfile) {
+function updateProfile(card, profile = {}) {
   try {
-    const profile = await getProfile();
     const displayName = card.querySelector(".social-display-name");
     const account = card.querySelector(".social-account");
     const avatar = card.querySelector(".profile-avatar");
@@ -30,13 +29,20 @@ async function updateProfile(card, getProfile) {
       avatar.hidden = false;
     }
   } catch {
-    // Keep the statically rendered account name when a profile API is unavailable.
+    // Keep the statically rendered account name when profile data is unavailable.
   }
 }
 
-export function updateProfiles() {
+export async function updateProfiles() {
+  let profiles = {};
+
+  try {
+    profiles = await loadProfiles();
+  } catch {
+    // Keep static fallback when the cached profile file is missing.
+  }
+
   document.querySelectorAll("[data-profile]").forEach((card) => {
-    const getProfile = profileRequests[card.dataset.profile];
-    if (getProfile) updateProfile(card, getProfile);
+    updateProfile(card, profiles[card.dataset.profile]);
   });
 }

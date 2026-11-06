@@ -107,39 +107,6 @@ header {
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.icon-twitter {
-    color: #1d9bf0;
-    fill: #1d9bf0;
-}
-
-.icon-misskey {
-    color: #9b70e8;
-    fill: none;
-    stroke: #9b70e8;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 1.8;
-}
-
-.icon-bluesky {
-    color: #1185fe;
-    fill: #1185fe;
-}
-
-.icon-mastodon {
-    color: #6364ff;
-    fill: #6364ff;
-}
-
-.icon-github {
-    color: #24292f;
-    fill: none;
-    stroke: #24292f;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 1.7;
-}
-
 .social-profile-link:hover {
     background-color: #1b2835;
     transform: translateY(-2px);

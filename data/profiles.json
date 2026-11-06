@@ -1,0 +1,25 @@
+{
+  "generatedAt": null,
+  "profiles": {
+    "twitter": {
+      "screenName": "nsmr0604",
+      "avatar": null
+    },
+    "misskey": {
+      "name": null,
+      "avatar": null
+    },
+    "bluesky": {
+      "name": null,
+      "avatar": null
+    },
+    "mastodon": {
+      "name": null,
+      "avatar": null
+    },
+    "github": {
+      "name": null,
+      "avatar": null
+    }
+  }
+}

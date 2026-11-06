@@ -1,0 +1,173 @@
+name: Update social profiles
+
+on:
+  schedule:
+    - cron: "17 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Decide weekly random-like day
+        id: should_run
+        run: |
+          python - <<'PY'
+          import datetime
+          import hashlib
+          import os
+
+          now = datetime.datetime.utcnow()
+          iso_year, iso_week, iso_weekday = now.isocalendar()
+          week_key = f"{iso_year}-W{iso_week:02d}".encode("utf-8")
+          target_weekday = hashlib.sha256(week_key).digest()[0] % 7 + 1
+          should_run = str(iso_weekday == target_weekday).lower()
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
+              fh.write(f"should_run={should_run}\n")
+              fh.write(f"target_weekday={target_weekday}\n")
+              fh.write(f"today_weekday={iso_weekday}\n")
+          PY
+
+      - name: Skip this day
+        if: steps.should_run.outputs.should_run != 'true'
+        run: |
+          echo "Skip today."
+          echo "target_weekday=${{ steps.should_run.outputs.target_weekday }}"
+          echo "today_weekday=${{ steps.should_run.outputs.today_weekday }}"
+
+      - name: Fetch and write profile cache
+        if: steps.should_run.outputs.should_run == 'true'
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from urllib.error import URLError, HTTPError
+          from urllib.parse import quote
+          from urllib.request import Request, urlopen
+
+          OUTPUT_PATH = "data/profiles.json"
+          MISSKEY_URL = "https://misskey.io/api/users/show"
+          BLUESKY_URL = "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=nsmr0604.gee.jp"
+          MASTODON_URL = "https://pawoo.net/api/v1/accounts/lookup?acct=" + quote("nsmr0604")
+          GITHUB_URL = "https://api.github.com/users/nsmr0604"
+          TWITTER_URL = "https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=nsmr0604"
+
+          def request_json(url, method="GET", body=None, headers=None):
+              req_headers = {
+                  "User-Agent": "nsmr0604-profile-updater/1.0",
+                  "Accept": "application/json",
+              }
+              if headers:
+                  req_headers.update(headers)
+
+              data = None
+              if body is not None:
+                  data = json.dumps(body).encode("utf-8")
+
+              request = Request(url, data=data, method=method, headers=req_headers)
+              with urlopen(request, timeout=20) as response:
+                  return json.loads(response.read().decode("utf-8"))
+
+          previous = {
+              "generatedAt": None,
+              "profiles": {
+                  "twitter": {"screenName": "nsmr0604", "avatar": None},
+                  "misskey": {"name": None, "avatar": None},
+                  "bluesky": {"name": None, "avatar": None},
+                  "mastodon": {"name": None, "avatar": None},
+                  "github": {"name": None, "avatar": None},
+              },
+          }
+
+          try:
+              with open(OUTPUT_PATH, "r", encoding="utf-8") as fh:
+                  previous = json.load(fh)
+          except FileNotFoundError:
+              pass
+
+          profiles = previous.get("profiles", {})
+
+          def get_previous(name, key):
+              return profiles.get(name, {}).get(key)
+
+          def safe_profile(name, producer):
+              try:
+                  return producer()
+              except (URLError, HTTPError, TimeoutError, ValueError, KeyError, IndexError):
+                  return profiles.get(name, {})
+
+          def fetch_twitter():
+              data = request_json(TWITTER_URL) or [{}]
+              profile = data[0] if data else {}
+              return {
+                  "screenName": profile.get("screen_name") or get_previous("twitter", "screenName") or "nsmr0604",
+                  "avatar": profile.get("profile_image_url_https") or get_previous("twitter", "avatar"),
+              }
+
+          def fetch_misskey():
+              profile = request_json(
+                  MISSKEY_URL,
+                  method="POST",
+                  body={"username": "nsmr0604"},
+                  headers={"Content-Type": "application/json"},
+              )
+              return {
+                  "name": profile.get("name") or get_previous("misskey", "name"),
+                  "avatar": profile.get("avatarUrl") or get_previous("misskey", "avatar"),
+              }
+
+          def fetch_bluesky():
+              profile = request_json(BLUESKY_URL)
+              return {
+                  "name": profile.get("displayName") or get_previous("bluesky", "name"),
+                  "avatar": profile.get("avatar") or get_previous("bluesky", "avatar"),
+              }
+
+          def fetch_mastodon():
+              profile = request_json(MASTODON_URL)
+              return {
+                  "name": profile.get("display_name") or get_previous("mastodon", "name"),
+                  "avatar": profile.get("avatar_static") or profile.get("avatar") or get_previous("mastodon", "avatar"),
+              }
+
+          def fetch_github():
+              profile = request_json(GITHUB_URL)
+              return {
+                  "name": profile.get("name") or get_previous("github", "name"),
+                  "avatar": profile.get("avatar_url") or get_previous("github", "avatar"),
+              }
+
+          output = {
+              "generatedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+              "profiles": {
+                  "twitter": safe_profile("twitter", fetch_twitter),
+                  "misskey": safe_profile("misskey", fetch_misskey),
+                  "bluesky": safe_profile("bluesky", fetch_bluesky),
+                  "mastodon": safe_profile("mastodon", fetch_mastodon),
+                  "github": safe_profile("github", fetch_github),
+              },
+          }
+
+          with open(OUTPUT_PATH, "w", encoding="utf-8") as fh:
+              json.dump(output, fh, ensure_ascii=False, indent=2)
+              fh.write("\n")
+          PY
+
+      - name: Commit and push
+        if: steps.should_run.outputs.should_run == 'true'
+        run: |
+          if git diff --quiet; then
+            echo "No change"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/profiles.json
+          git commit -m "Update social profile cache"
+          git push
