@@ -7,7 +7,7 @@ on:
 
 env:
   CACHE_BRANCH: profiles-cache
-  CACHE_FILE: assets/data/profiles.json
+  CACHE_FILE: assets/profiles/profiles.json
 
 permissions:
   contents: write
@@ -81,8 +81,9 @@ jobs:
           from urllib.error import URLError, HTTPError
           from urllib.parse import quote
           from urllib.request import Request, urlopen
+          import os
 
-          OUTPUT_PATH = "assets/data/profiles.json"
+          OUTPUT_PATH = "assets/profiles/profiles.json"
           MISSKEY_URL = "https://misskey.io/api/users/show"
           BLUESKY_URL = "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=did:plc:rngv7mf7c23mbc5iqgm2jw6q"
           MASTODON_URL = "https://pawoo.net/api/v1/accounts/lookup?acct=" + quote("nsmr0604")
@@ -183,6 +184,50 @@ jobs:
               "github": safe_profile("github", fetch_github),
           }
 
+          AVATAR_DIR = "assets/profiles"
+          EXTENSIONS = {"image/jpeg": "jpg", "image/png": "png", "image/gif": "gif", "image/webp": "webp"}
+          os.makedirs(AVATAR_DIR, exist_ok=True)
+
+          def download_avatars():
+              for name, profile in next_profiles.items():
+                  url = profile.get("avatar")
+                  if not isinstance(url, str) or not url.startswith(("http://", "https://")):
+                      continue
+                  old = profiles.get(name, {})
+                  old_path = old.get("avatar")
+                  if (
+                      old.get("avatarSource") == url
+                      and isinstance(old_path, str)
+                      and os.path.exists(os.path.join(AVATAR_DIR, old_path))
+                  ):
+                      profile["avatar"] = old_path
+                      profile["avatarSource"] = url
+                      continue
+                  try:
+                      req = Request(url, headers={"User-Agent": "nsmr0604-profile-updater/1.0"})
+                      with urlopen(req, timeout=20) as response:
+                          ctype = response.headers.get_content_type()
+                          data = response.read()
+                      ext = EXTENSIONS.get(ctype)
+                      if not ext or not data:
+                          raise ValueError(ctype)
+                  except (URLError, HTTPError, TimeoutError, ValueError):
+                      if isinstance(old_path, str) and not old_path.startswith(("http://", "https://")):
+                          profile["avatar"] = old_path
+                          profile["avatarSource"] = old.get("avatarSource")
+                      continue
+                  rel = f"{name}.{ext}"
+                  for other in EXTENSIONS.values():
+                      stale = os.path.join(AVATAR_DIR, f"{name}.{other}")
+                      if other != ext and os.path.exists(stale):
+                          os.remove(stale)
+                  with open(os.path.join(AVATAR_DIR, rel), "wb") as fh:
+                      fh.write(data)
+                  profile["avatar"] = rel
+                  profile["avatarSource"] = url
+
+          download_avatars()
+
           previous_profiles = previous.get("profiles", {})
           if next_profiles == previous_profiles and previous.get("generatedAt"):
               print("No profile changes detected. Keep existing cache file.")
@@ -201,8 +246,9 @@ jobs:
       - name: Commit and push to cache branch
         if: steps.should_run.outputs.should_run == 'true'
         run: |
-          tmp_cache="$RUNNER_TEMP/profiles.json"
-          cp "$CACHE_FILE" "$tmp_cache"
+          tmp_dir="$RUNNER_TEMP/profiles"
+          rm -rf "$tmp_dir"
+          cp -r "$(dirname "$CACHE_FILE")" "$tmp_dir"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -215,9 +261,10 @@ jobs:
           fi
 
           mkdir -p "$(dirname "$CACHE_FILE")"
-          cp "$tmp_cache" "$CACHE_FILE"
+          rm -rf "$(dirname "$CACHE_FILE")"
+          cp -r "$tmp_dir" "$(dirname "$CACHE_FILE")"
 
-          git add "$CACHE_FILE"
+          git add -A "$(dirname "$CACHE_FILE")"
           if git diff --cached --quiet; then
             echo "No change"
             exit 0
