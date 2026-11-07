@@ -5,6 +5,10 @@ on:
     - cron: "17 2 * * *"
   workflow_dispatch:
 
+env:
+  CACHE_BRANCH: profiles-cache
+  CACHE_FILE: assets/data/profiles.json
+
 permissions:
   contents: write
 
@@ -42,6 +46,31 @@ jobs:
           echo "target_weekday=${{ steps.should_run.outputs.target_weekday }}"
           echo "today_weekday=${{ steps.should_run.outputs.today_weekday }}"
 
+      - name: Load previous cache from cache branch
+        if: steps.should_run.outputs.should_run == 'true'
+        run: |
+          mkdir -p "$(dirname "$CACHE_FILE")"
+          git fetch origin "$CACHE_BRANCH" --depth=1 || true
+
+          if git show "origin/$CACHE_BRANCH:$CACHE_FILE" > "$CACHE_FILE" 2>/dev/null; then
+            echo "Loaded previous cache from $CACHE_BRANCH"
+          elif [ -f "$CACHE_FILE" ]; then
+            echo "Using existing fallback cache from current branch"
+          else
+            cat > "$CACHE_FILE" <<'JSON'
+          {
+            "generatedAt": null,
+            "profiles": {
+              "twitter": {"screenName": "nsmr0604", "avatar": null},
+              "misskey": {"name": null, "avatar": null},
+              "bluesky": {"name": null, "avatar": null},
+              "mastodon": {"name": null, "avatar": null},
+              "github": {"name": null, "avatar": null}
+            }
+          }
+          JSON
+          fi
+
       - name: Fetch and write profile cache
         if: steps.should_run.outputs.should_run == 'true'
         run: |
@@ -53,7 +82,7 @@ jobs:
           from urllib.parse import quote
           from urllib.request import Request, urlopen
 
-          OUTPUT_PATH = "data/profiles.json"
+          OUTPUT_PATH = "assets/data/profiles.json"
           MISSKEY_URL = "https://misskey.io/api/users/show"
           BLUESKY_URL = "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=nsmr0604.gee.jp"
           MASTODON_URL = "https://pawoo.net/api/v1/accounts/lookup?acct=" + quote("nsmr0604")
@@ -145,15 +174,22 @@ jobs:
                   "avatar": profile.get("avatar_url") or get_previous("github", "avatar"),
               }
 
+          next_profiles = {
+              "twitter": safe_profile("twitter", fetch_twitter),
+              "misskey": safe_profile("misskey", fetch_misskey),
+              "bluesky": safe_profile("bluesky", fetch_bluesky),
+              "mastodon": safe_profile("mastodon", fetch_mastodon),
+              "github": safe_profile("github", fetch_github),
+          }
+
+          previous_profiles = previous.get("profiles", {})
+          if next_profiles == previous_profiles and previous.get("generatedAt"):
+              print("No profile changes detected. Keep existing cache file.")
+              raise SystemExit(0)
+
           output = {
               "generatedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
-              "profiles": {
-                  "twitter": safe_profile("twitter", fetch_twitter),
-                  "misskey": safe_profile("misskey", fetch_misskey),
-                  "bluesky": safe_profile("bluesky", fetch_bluesky),
-                  "mastodon": safe_profile("mastodon", fetch_mastodon),
-                  "github": safe_profile("github", fetch_github),
-              },
+              "profiles": next_profiles,
           }
 
           with open(OUTPUT_PATH, "w", encoding="utf-8") as fh:
@@ -161,15 +197,30 @@ jobs:
               fh.write("\n")
           PY
 
-      - name: Commit and push
+      - name: Commit and push to cache branch
         if: steps.should_run.outputs.should_run == 'true'
         run: |
-          if git diff --quiet; then
+          tmp_cache="$RUNNER_TEMP/profiles.json"
+          cp "$CACHE_FILE" "$tmp_cache"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git ls-remote --exit-code --heads origin "$CACHE_BRANCH" >/dev/null 2>&1; then
+            git checkout -B "$CACHE_BRANCH" "origin/$CACHE_BRANCH"
+          else
+            git checkout --orphan "$CACHE_BRANCH"
+            git rm -rf . >/dev/null 2>&1 || true
+          fi
+
+          mkdir -p "$(dirname "$CACHE_FILE")"
+          cp "$tmp_cache" "$CACHE_FILE"
+
+          git add "$CACHE_FILE"
+          if git diff --cached --quiet; then
             echo "No change"
             exit 0
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/profiles.json
+
           git commit -m "Update social profile cache"
-          git push
+          git push origin "$CACHE_BRANCH"

@@ -30,10 +30,11 @@ python3 -m http.server 8000
 
 ## SNSプロフィール更新
 
-SNSプロフィールの表示データは `data/profiles.json` に保存されます。
+SNSプロフィールの表示データは専用ブランチ `profiles-cache` の `assets/data/profiles.json` に保存されます。
 
 - 取得元: Twitter/X, Misskey, Bluesky, Mastodon, GitHub の公開API
 - 更新方法: GitHub Actions（`.github/workflows/update-social-profiles.yml`）
 - 実行頻度: 毎日判定し、週ごとに1回だけ不定の曜日で更新
+- 保存先: `profiles-cache` ブランチ（`master` へ定期コミットしない）
 
-ページ読み込み時は外部APIを直接呼ばず、`data/profiles.json` の内容を利用します。
+ページ読み込み時は外部APIを直接呼ばず、`profiles-cache` ブランチのJSONを優先利用し、失敗時のみローカル `assets/data/profiles.json` にフォールバックします。
