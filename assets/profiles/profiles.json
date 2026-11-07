@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-11-07T02:12:04Z",
+  "profiles": {
+    "twitter": {
+      "screenName": "nsmr0604",
+      "avatar": null
+    },
+    "misskey": {
+      "name": "魔法少女☆チノ:verify:",
+      "avatar": "misskey.png",
+      "avatarSource": "https://proxy.misskeyusercontent.jp/avatar.webp?url=https%3A%2F%2Fmedia.misskeyusercontent.jp%2Fmisskey%2F5abfc7cb-0ba7-46ff-82db-b8b3a79776cc.png&avatar=1"
+    },
+    "bluesky": {
+      "name": "魔法少女☆チノ@ゆずと８月と角砂糖",
+      "avatar": "bluesky.webp",
+      "avatarSource": "https://cdn.bsky.app/img/avatar/plain/did:plc:rngv7mf7c23mbc5iqgm2jw6q/bafkreici6gq5sdquj7z3jhjhyt7cozelgskvklndck6glhanehhpwluium"
+    },
+    "mastodon": {
+      "name": "魔法少女☆チノ✅",
+      "avatar": "mastodon.png",
+      "avatarSource": "https://img.pawoo.net/accounts/avatars/000/002/003/original/7647e7627827e1c7.png"
+    },
+    "github": {
+      "name": null,
+      "avatar": null
+    }
+  }
+}
