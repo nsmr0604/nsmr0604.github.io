@@ -12,7 +12,7 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+      - uses: actions/checkout@v5
 
       - name: Decide weekly random-like day
         id: should_run
@@ -29,9 +29,9 @@ jobs:
           should_run = str(iso_weekday == target_weekday).lower()
 
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
-              fh.write(f"should_run={should_run}\n")
-              fh.write(f"target_weekday={target_weekday}\n")
-              fh.write(f"today_weekday={iso_weekday}\n")
+              fh.write(f"should_run={should_run}\\n")
+              fh.write(f"target_weekday={target_weekday}\\n")
+              fh.write(f"today_weekday={iso_weekday}\\n")
           PY
 
       - name: Skip this day
@@ -156,7 +156,7 @@ jobs:
 
           with open(OUTPUT_PATH, "w", encoding="utf-8") as fh:
               json.dump(output, fh, ensure_ascii=False, indent=2)
-              fh.write("\n")
+              fh.write("\\n")
           PY
 
       - name: Commit and push
