@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">nsmr0604 Social Media Hub</title>
+  <desc id="desc">Profile card image for nsmr0604 social media hub.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e8f0ff" />
+      <stop offset="100%" stop-color="#d7ffe8" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect x="56" y="56" width="1088" height="518" rx="28" fill="#ffffff" stroke="#c9d7e8" stroke-width="4" />
+  <text x="110" y="240" font-size="66" font-family="'BIZ UDGothic', 'Yu Gothic', sans-serif" font-weight="700" fill="#203247">
+    nsmr0604
+  </text>
+  <text x="110" y="315" font-size="42" font-family="'BIZ UDGothic', 'Yu Gothic', sans-serif" fill="#36516f">
+    Social Media Hub
+  </text>
+  <text x="110" y="388" font-size="36" font-family="'BIZ UDGothic', 'Yu Gothic', sans-serif" fill="#4d617b">
+    ゆずと８月と角砂糖
+  </text>
+</svg>

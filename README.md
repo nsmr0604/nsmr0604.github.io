@@ -26,7 +26,7 @@ python3 -m http.server 8000
 
 ## デプロイ
 
-`main` ブランチへ push すると GitHub Pages により自動で公開されます。
+`master` ブランチへ push すると GitHub Pages により自動で公開されます。
 
 ## SNSプロフィール更新
 
