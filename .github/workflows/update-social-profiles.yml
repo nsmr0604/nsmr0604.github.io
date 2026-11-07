@@ -84,10 +84,11 @@ jobs:
 
           OUTPUT_PATH = "assets/data/profiles.json"
           MISSKEY_URL = "https://misskey.io/api/users/show"
-          BLUESKY_URL = "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=nsmr0604.gee.jp"
+          BLUESKY_URL = "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=did:plc:rngv7mf7c23mbc5iqgm2jw6q"
           MASTODON_URL = "https://pawoo.net/api/v1/accounts/lookup?acct=" + quote("nsmr0604")
           GITHUB_URL = "https://api.github.com/users/nsmr0604"
           TWITTER_URL = "https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=nsmr0604"
+          TWITTER_FALLBACK_AVATAR = "https://unavatar.io/x/nsmr0604"
 
           def request_json(url, method="GET", body=None, headers=None):
               req_headers = {
@@ -138,7 +139,7 @@ jobs:
               profile = data[0] if data else {}
               return {
                   "screenName": profile.get("screen_name") or get_previous("twitter", "screenName") or "nsmr0604",
-                  "avatar": profile.get("profile_image_url_https") or get_previous("twitter", "avatar"),
+                "avatar": profile.get("profile_image_url_https") or get_previous("twitter", "avatar") or TWITTER_FALLBACK_AVATAR,
               }
 
           def fetch_misskey():
