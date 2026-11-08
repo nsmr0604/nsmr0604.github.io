@@ -18,6 +18,7 @@ async function fetchProfilesFrom(url) {
       profile.avatar = new URL(profile.avatar, base).href;
     }
   }
+
   return profiles;
 }
 

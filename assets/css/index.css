@@ -1,0 +1,115 @@
+/* --- Index page (Social Media Hub) --- */
+
+.social-links {
+    list-style: none;
+    padding: 0;
+    max-width: 960px;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 1rem;
+}
+
+.social-links li {
+    min-width: 0;
+}
+
+.social-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 9rem;
+    padding: 1rem;
+    border: 1px solid #d5dce2;
+    border-radius: 0.75rem;
+    background-color: #fff;
+    color: #2c3e50;
+}
+
+.social-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.social-card-header h2 {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.social-account {
+    margin: 0.25rem 0 1rem;
+    color: #666;
+    overflow-wrap: anywhere;
+}
+
+.social-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 3rem;
+    margin: 0.75rem 0 1rem;
+}
+
+.profile-avatar {
+    width: 3rem;
+    height: 3rem;
+    flex: 0 0 3rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.social-display-name {
+    margin: 0;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.social-profile-link {
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.4rem;
+    background-color: #2c3e50;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.social-profile-link:hover {
+    background-color: #1b2835;
+    transform: translateY(-2px);
+}
+
+.social-profile-link:focus-visible {
+    outline: 3px solid #2c3e50;
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .social-profile-link {
+        transition: none;
+    }
+
+    .social-profile-link:hover {
+        transform: none;
+    }
+}
+
+
+.about-link {
+    margin-top: 0.5rem;
+}
+
+.about-link a {
+    display: inline-block;
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.4rem;
+    background-color: #2c3e50;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.about-link a:hover {
+    background-color: #1b2835;
+}

@@ -1,7 +1,8 @@
-import { loadProfiles } from "./profile-requests.js";
+import { loadProfiles } from "./profile-data.js";
 
 function isWebUrl(value) {
   if (!value) return false;
+
   try {
     return ["http:", "https:"].includes(new URL(value).protocol);
   } catch {
@@ -9,7 +10,7 @@ function isWebUrl(value) {
   }
 }
 
-function updateProfile(card, profile = {}) {
+export function updateProfileCard(card, profile = {}) {
   try {
     const displayName = card.querySelector(".social-display-name");
     const account = card.querySelector(".social-account");
@@ -33,7 +34,7 @@ function updateProfile(card, profile = {}) {
   }
 }
 
-export async function updateProfiles() {
+export async function updateAllProfileCards() {
   let profiles = {};
 
   try {
@@ -43,6 +44,6 @@ export async function updateProfiles() {
   }
 
   document.querySelectorAll("[data-profile]").forEach((card) => {
-    updateProfile(card, profiles[card.dataset.profile]);
+    updateProfileCard(card, profiles[card.dataset.profile]);
   });
 }
