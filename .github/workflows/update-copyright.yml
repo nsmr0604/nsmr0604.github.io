@@ -17,7 +17,7 @@ jobs:
       - name: Rewrite footer year
         run: |
           year=$(TZ=Asia/Tokyo date +%Y)
-          sed -i -E "s|(<span id=\"year\">)[0-9]{4}(</span>)|\1${year}\2|" index.html
+          sed -i -E "s|(<span id=\"updated-year\">)[0-9]{4}(</span>)|\1${year}\2|" index.html about.html
       - name: Commit and push
         run: |
           if git diff --quiet; then
