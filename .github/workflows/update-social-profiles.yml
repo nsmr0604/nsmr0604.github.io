@@ -82,6 +82,7 @@ jobs:
         run: |
           python - <<'PY'
           import json
+          import re
           from json import JSONDecodeError
           from datetime import datetime, timezone
           from urllib.error import URLError, HTTPError
@@ -94,8 +95,18 @@ jobs:
           BLUESKY_URL = "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=did:plc:rngv7mf7c23mbc5iqgm2jw6q"
           MASTODON_URL = "https://pawoo.net/api/v1/accounts/lookup?acct=" + quote("nsmr0604")
           GITHUB_URL = "https://api.github.com/users/nsmr0604"
+          # X shut down every key-free profile endpoint, so the X display name
+          # and avatar are read from Twilog instead. Twilog blocks anonymous
+          # access with 403 but still serves pages to known crawler user
+          # agents; access is a single page per week, so load is negligible.
+          TWILOG_URL = "https://twilog.org/nsmr0604"
+          CRAWLER_UA = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+          WILOG_STATE_RE = re.compile(
+              r'<script id="wilog-user-config-state" type="application/json">(.*?)</script>',
+              re.DOTALL,
+          )
 
-          def request_json(url, method="GET", body=None, headers=None):
+          def request_text(url, method="GET", body=None, headers=None):
               req_headers = {
                   "User-Agent": "nsmr0604-profile-updater/1.0",
                   "Accept": "application/json",
@@ -109,7 +120,10 @@ jobs:
 
               request = Request(url, data=data, method=method, headers=req_headers)
               with urlopen(request, timeout=20) as response:
-                  return json.loads(response.read().decode("utf-8"))
+                  return response.read().decode("utf-8")
+
+          def request_json(url, method="GET", body=None, headers=None):
+              return json.loads(request_text(url, method=method, body=body, headers=headers))
 
           previous = {
               "generatedAt": None,
@@ -138,6 +152,18 @@ jobs:
                   return producer()
               except (URLError, HTTPError, TimeoutError, ValueError, KeyError, IndexError):
                   return profiles.get(name, {})
+
+          def fetch_twitter():
+              html = request_text(TWILOG_URL, headers={"User-Agent": CRAWLER_UA, "Accept": "text/html"})
+              match = WILOG_STATE_RE.search(html)
+              if not match:
+                  raise ValueError("wilog-user-config-state not found")
+              user = (json.loads(match.group(1)).get("user") or {})
+              return {
+                  "screenName": user.get("userId") or get_previous("twitter", "screenName") or "nsmr0604",
+                  "name": user.get("name") or get_previous("twitter", "name"),
+                  "avatar": user.get("imageUrl") or get_previous("twitter", "avatar"),
+              }
 
           def fetch_misskey():
               profile = request_json(
@@ -173,15 +199,9 @@ jobs:
               }
 
           next_profiles = {
-              # X shut down every key-free profile endpoint: the syndication
-              # followbutton API returns an empty 200 body, oEmbed carries no
-              # display name or avatar, and third-party mirrors get blocked.
-              # Keep the static card fallback (handle only); a manually added
-              # avatar file on the cache branch is preserved by this entry.
-              "twitter": {
-                  "screenName": get_previous("twitter", "screenName") or "nsmr0604",
-                  "avatar": get_previous("twitter", "avatar"),
-              },
+              # X profile data comes from Twilog (see comment above TWILOG_URL);
+              # on failure safe_profile falls back to the previous/static values.
+              "twitter": safe_profile("twitter", fetch_twitter),
               "misskey": safe_profile("misskey", fetch_misskey),
               "bluesky": safe_profile("bluesky", fetch_bluesky),
               "mastodon": safe_profile("mastodon", fetch_mastodon),
