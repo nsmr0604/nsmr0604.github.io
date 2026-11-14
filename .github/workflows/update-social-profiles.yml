@@ -49,11 +49,17 @@ jobs:
       - name: Load previous cache from cache branch
         if: steps.should_run.outputs.should_run == 'true'
         run: |
-          mkdir -p "$(dirname "$CACHE_FILE")"
+          CACHE_DIR="$(dirname "$CACHE_FILE")"
+          mkdir -p "$CACHE_DIR"
           git fetch origin "$CACHE_BRANCH" --depth=1 || true
 
-          if git show "origin/$CACHE_BRANCH:$CACHE_FILE" > "$CACHE_FILE" 2>/dev/null; then
-            echo "Loaded previous cache from $CACHE_BRANCH"
+          if git cat-file -e "origin/$CACHE_BRANCH:$CACHE_FILE" 2>/dev/null; then
+            # Restore the whole directory: the JSON *and* the previously
+            # downloaded avatar files. Restoring only the JSON used to delete
+            # cached avatar files from the branch whenever a download failed
+            # on one run, while the JSON kept referencing the missing file.
+            git checkout "origin/$CACHE_BRANCH" -- "$CACHE_DIR"
+            echo "Loaded previous cache (JSON + avatar files) from $CACHE_BRANCH"
           elif [ -f "$CACHE_FILE" ]; then
             echo "Using existing fallback cache from current branch"
           else
@@ -88,7 +94,6 @@ jobs:
           BLUESKY_URL = "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=did:plc:rngv7mf7c23mbc5iqgm2jw6q"
           MASTODON_URL = "https://pawoo.net/api/v1/accounts/lookup?acct=" + quote("nsmr0604")
           GITHUB_URL = "https://api.github.com/users/nsmr0604"
-          TWITTER_URL = "https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=nsmr0604"
 
           def request_json(url, method="GET", body=None, headers=None):
               req_headers = {
@@ -134,14 +139,6 @@ jobs:
               except (URLError, HTTPError, TimeoutError, ValueError, KeyError, IndexError):
                   return profiles.get(name, {})
 
-          def fetch_twitter():
-              data = request_json(TWITTER_URL) or [{}]
-              profile = data[0] if data else {}
-              return {
-                  "screenName": profile.get("screen_name") or get_previous("twitter", "screenName") or "nsmr0604",
-                  "avatar": profile.get("profile_image_url_https") or get_previous("twitter", "avatar"),
-              }
-
           def fetch_misskey():
               profile = request_json(
                   MISSKEY_URL,
@@ -176,7 +173,15 @@ jobs:
               }
 
           next_profiles = {
-              "twitter": safe_profile("twitter", fetch_twitter),
+              # X shut down every key-free profile endpoint: the syndication
+              # followbutton API returns an empty 200 body, oEmbed carries no
+              # display name or avatar, and third-party mirrors get blocked.
+              # Keep the static card fallback (handle only); a manually added
+              # avatar file on the cache branch is preserved by this entry.
+              "twitter": {
+                  "screenName": get_previous("twitter", "screenName") or "nsmr0604",
+                  "avatar": get_previous("twitter", "avatar"),
+              },
               "misskey": safe_profile("misskey", fetch_misskey),
               "bluesky": safe_profile("bluesky", fetch_bluesky),
               "mastodon": safe_profile("mastodon", fetch_mastodon),
