@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-07T02:12:04Z",
+  "generatedAt": "2026-11-14T08:55:57Z",
   "profiles": {
     "twitter": {
       "screenName": "nsmr0604",
@@ -21,8 +21,9 @@
       "avatarSource": "https://img.pawoo.net/accounts/avatars/000/002/003/original/7647e7627827e1c7.png"
     },
     "github": {
-      "name": null,
-      "avatar": null
+      "name": "nsmr0604",
+      "avatar": "github.png",
+      "avatarSource": "https://avatars.githubusercontent.com/u/2390764?v=4"
     }
   }
 }
