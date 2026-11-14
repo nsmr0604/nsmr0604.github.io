@@ -1,0 +1,23 @@
+# nsmr0604 — Social Media Hub
+
+> nsmr0604（SNS名義：魔法少女☆チノ、愛称：ゆずと８月と角砂糖）の個人サイト。すべてのSNSプロフィールへのリンクと自己紹介をまとめたハブです。お問い合わせは各SNSのDMからお願いします。
+
+## Pages
+
+- [Home（Social Media Hub）](https://www.nsmr0604.geek.jp/): Misskey・Bluesky・Mastodon・GitHub・Twitter/X への公式リンク集
+- [About（自己紹介）](https://www.nsmr0604.geek.jp/about.html): 自己紹介、趣味・好きなもの、基本情報
+
+## Social Profiles
+
+- [Twitter/X](https://twitter.com/nsmr0604): @nsmr0604
+- [Misskey](https://misskey.io/@nsmr0604): @nsmr0604@misskey.io
+- [Bluesky](https://bsky.app/profile/did:plc:rngv7mf7c23mbc5iqgm2jw6q): @nsmr0604.geek.jp
+- [Mastodon（Pawoo）](https://pawoo.net/@nsmr0604): @nsmr0604@pawoo.net
+- [GitHub](https://github.com/nsmr0604): @nsmr0604
+
+## About Summary
+
+- 名前: nsmr0604（SNS名義：魔法少女☆チノ／別名：ゆずと８月と角砂糖）
+- 誕生日: 6月4日／在住: 日本
+- 推し: 白上フブキ（ホロライブゲーマーズ最推し、ホロライブ全体を箱推し）
+- 趣味: 音ゲー（Arcaea・デレステ・オンゲキ・CHUNITHM）、遊戯王OCG/MD（閃刀姫）、ソシャゲ（アズレン・ブルアカ・雀魂）、Web小説（なろう・カクヨム／TS・異世界・VRMMO系）、PC・ガジェットいじり
