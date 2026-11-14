@@ -1,3 +1,10 @@
+/* --- Global box-sizing (prevents horizontal overflow from padding + width) --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 /* --- Skip link (accessibility) --- */
 .skip-link {
     position: absolute;

@@ -113,3 +113,11 @@
 .about-link a:hover {
     background-color: #1b2835;
 }
+
+/* --- Inquiry note (centered to match the header) --- */
+
+.inquiry-note {
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+}
