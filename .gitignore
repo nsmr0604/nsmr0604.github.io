@@ -1,3 +1,4 @@
 .vscode
 gh-pages.code-workspace
 _temp/
+assets/*.zip
