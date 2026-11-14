@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="assets/css/default.css" />
     <link rel="stylesheet" href="assets/css/index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&amp;display=swap"
       rel="stylesheet"
@@ -59,6 +59,7 @@
     <script type="module" src="assets/js/main.js"></script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">メインコンテンツへスキップ</a>
     <header>
       <h1>
         nsmr0604 — Social Media Hub<br />
@@ -67,11 +68,11 @@
       <p class="tagline">All links to my social profiles in one place.</p>
       <p class="about-link"><a href="about.html">自己紹介を見る →</a></p>
     </header>
-    <main>
+    <main id="main-content">
       <p>For inquiries, please send a DM via the platforms below.</p>
       <ul class="social-links">
         <li>
-          <article class="social-card" data-profile="twitter">
+          <article class="social-card" data-profile="twitter" aria-labelledby="card-twitter-title">
             <div class="social-card-header">
               <img
                 class="social-icon"
@@ -81,20 +82,21 @@
                 width="28"
                 height="28"
               />
-              <h2>Twitter/X</h2>
+              <h2 id="card-twitter-title">Twitter/X</h2>
             </div>
             <div class="social-profile">
-              <img class="profile-avatar" alt="" hidden />
+              <img class="profile-avatar" alt="" hidden loading="lazy" />
               <div>
                 <p class="social-display-name">ゆずと８月と角砂糖</p>
                 <p class="social-account">@nsmr0604</p>
               </div>
             </div>
-            <a class="social-profile-link" href="https://twitter.com/nsmr0604" rel="me">プロフィールを見る</a>
+            <a class="social-profile-link" href="https://twitter.com/nsmr0604" rel="me">
+rel="me noopener noreferrer">プロフィールを見る</a>
           </article>
         </li>
         <li>
-          <article class="social-card" data-profile="misskey">
+          <article class="social-card" data-profile="misskey" aria-labelledby="card-misskey-title">
             <div class="social-card-header">
               <img
                 class="social-icon"
@@ -104,20 +106,21 @@
                 width="28"
                 height="28"
               />
-              <h2>Misskey</h2>
+              <h2 id="card-misskey-title">Misskey</h2>
             </div>
             <div class="social-profile">
-              <img class="profile-avatar" alt="" hidden />
+              <img class="profile-avatar" alt="" hidden loading="lazy" />
               <div>
                 <p class="social-display-name" hidden></p>
                 <p class="social-account">@nsmr0604@misskey.io</p>
               </div>
             </div>
-            <a class="social-profile-link" href="https://misskey.io/@nsmr0604" rel="me">プロフィールを見る</a>
+            <a class="social-profile-link" href="https://misskey.io/@nsmr0604" rel="me">
+rel="me noopener noreferrer">プロフィールを見る</a>
           </article>
         </li>
         <li>
-          <article class="social-card" data-profile="bluesky">
+          <article class="social-card" data-profile="bluesky" aria-labelledby="card-bluesky-title">
             <div class="social-card-header">
               <img
                 class="social-icon"
@@ -127,20 +130,21 @@
                 width="28"
                 height="28"
               />
-              <h2>Bluesky</h2>
+              <h2 id="card-bluesky-title">Bluesky</h2>
             </div>
             <div class="social-profile">
-              <img class="profile-avatar" alt="" hidden />
+              <img class="profile-avatar" alt="" hidden loading="lazy" />
               <div>
                 <p class="social-display-name" hidden></p>
                 <p class="social-account">@nsmr0604.geek.jp</p>
               </div>
             </div>
-            <a class="social-profile-link" href="https://bsky.app/profile/did:plc:rngv7mf7c23mbc5iqgm2jw6q" rel="me">プロフィールを見る</a>
+            <a class="social-profile-link" href="https://bsky.app/profile/did:plc:rngv7mf7c23mbc5iqgm2jw6q" rel="me">
+rel="me noopener noreferrer">プロフィールを見る</a>
           </article>
         </li>
         <li>
-          <article class="social-card" data-profile="mastodon">
+          <article class="social-card" data-profile="mastodon" aria-labelledby="card-mastodon-title">
             <div class="social-card-header">
               <img
                 class="social-icon"
@@ -150,20 +154,21 @@
                 width="28"
                 height="28"
               />
-              <h2>Mastodon</h2>
+              <h2 id="card-mastodon-title">Mastodon</h2>
             </div>
             <div class="social-profile">
-              <img class="profile-avatar" alt="" hidden />
+              <img class="profile-avatar" alt="" hidden loading="lazy" />
               <div>
                 <p class="social-display-name" hidden></p>
                 <p class="social-account">@nsmr0604@pawoo.net</p>
               </div>
             </div>
-            <a class="social-profile-link" href="https://pawoo.net/@nsmr0604" rel="me">プロフィールを見る</a>
+            <a class="social-profile-link" href="https://pawoo.net/@nsmr0604" rel="me">
+rel="me noopener noreferrer">プロフィールを見る</a>
           </article>
         </li>
         <li>
-          <article class="social-card" data-profile="github">
+          <article class="social-card" data-profile="github" aria-labelledby="card-github-title">
             <div class="social-card-header">
               <img
                 class="social-icon"
@@ -173,16 +178,17 @@
                 width="28"
                 height="28"
               />
-              <h2>GitHub</h2>
+              <h2 id="card-github-title">GitHub</h2>
             </div>
             <div class="social-profile">
-              <img class="profile-avatar" alt="" hidden />
+              <img class="profile-avatar" alt="" hidden loading="lazy" />
               <div>
                 <p class="social-display-name" hidden></p>
                 <p class="social-account">@nsmr0604</p>
               </div>
             </div>
-            <a class="social-profile-link" href="https://github.com/nsmr0604" rel="me">プロフィールを見る</a>
+            <a class="social-profile-link" href="https://github.com/nsmr0604" rel="me">
+rel="me noopener noreferrer">プロフィールを見る</a>
           </article>
         </li>
       </ul>
@@ -190,7 +196,8 @@
     <footer>
       <p>
         © 2018–<span id="year">2026</span>
-        <a href="https://twitter.com/nsmr0604" rel="me">nsmr0604</a>. All rights reserved.
+        <a href="https://twitter.com/nsmr0604" rel="me">
+rel="me noopener noreferrer">nsmr0604</a>. All rights reserved.
       </p>
     </footer>
   </body>

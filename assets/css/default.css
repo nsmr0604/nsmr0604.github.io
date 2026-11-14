@@ -1,3 +1,19 @@
+/* --- Skip link (accessibility) --- */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    padding: 0.5rem 1rem;
+    background-color: #2c3e50;
+    color: #fff;
+    z-index: 100;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
 /* --- Common (all pages) --- */
 
 body {
