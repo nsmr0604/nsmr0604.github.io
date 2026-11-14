@@ -1,32 +1,35 @@
 {
-  "name": "ゆずと８月と角砂糖",
-  "short_name": "YAS",
+  "name": "nsmr0604 — Social Media Hub",
+  "short_name": "nsmr0604",
+  "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "theme_color": "#007cf0",
+  "lang": "ja",
+  "description": "nsmr0604 (a.k.a. ゆずと８月と角砂糖) — Social Media Hub linking to Misskey, Bluesky, Mastodon, GitHub, Twitter/X.",
+  "theme_color": "#2c3e50",
   "background_color": "#ffffff",
   "icons": [
     {
-      "src": "assets/img/favicon/icon-192x192.png",
+      "src": "img/favicon/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "assets/img/favicon/icon-512x512.png",
+      "src": "img/favicon/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "assets/img/favicon/icon-maskable-192x192.png",
+      "src": "img/favicon/icon-maskable-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "assets/img/favicon/icon-maskable-512x512.png",
+      "src": "img/favicon/icon-maskable-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
