@@ -1,9 +1,11 @@
 {
-  "generatedAt": "2026-11-14T08:55:57Z",
+  "generatedAt": "2026-11-14T18:24:35Z",
   "profiles": {
     "twitter": {
       "screenName": "nsmr0604",
-      "avatar": null
+      "name": "魔法少女チノ＠ゆずと８月と角砂糖",
+      "avatar": "twitter.png",
+      "avatarSource": "https://pbs.twimg.com/profile_images/585254893293699072/8T-p1x0Y_x96.png"
     },
     "misskey": {
       "name": "魔法少女☆チノ:verify:",
