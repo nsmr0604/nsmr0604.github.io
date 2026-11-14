@@ -114,6 +114,15 @@
     background-color: #1b2835;
 }
 
+/* --- Site logo (header) --- */
+
+.site-logo {
+    display: block;
+    width: 6rem;
+    height: 6rem;
+    margin: 0 auto 0.5rem;
+}
+
 /* --- Inquiry note (centered to match the header) --- */
 
 .inquiry-note {
